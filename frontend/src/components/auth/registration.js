@@ -21,7 +21,7 @@ class registration extends Component {
 
     axios
       .post(
-        "http://localhost:3000" / registrations,
+        "" / registrations,
         {
           user: {
             username: username,
