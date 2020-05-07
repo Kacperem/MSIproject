@@ -23,7 +23,7 @@ class LocationViewSet(viewsets.ModelViewSet):
     """
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 @csrf_exempt
@@ -32,7 +32,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 def loginEndpoint(request):
     username = request.data.get("username")
     password = request.data.get("password")
-    login(username, password)
+    return login(username, password)
 
 
 def login(username, password):
