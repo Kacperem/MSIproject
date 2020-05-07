@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, Group
+from django.http import HttpResponse, HttpResponseNotFound
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework.authtoken.models import Token
@@ -60,3 +61,23 @@ def register(request):
                         status=HTTP_400_BAD_REQUEST)
     User.objects.create_user(username, email, password)
     return login(username, password)
+
+
+
+@api_view(["GET"])
+@permission_classes((permissions.IsAuthenticated,))
+def image(request, image):
+    try:
+        with open(image, 'rb') as f:
+            file_data = f.read()
+
+        # sending response
+        response = HttpResponse(file_data, content_type='image/jpeg')
+        response['Content-Disposition'] = f'attachment; filename="{image}"'
+
+    except IOError:
+        # handle file not exist case here
+        response = HttpResponseNotFound('<h1>File not exist</h1>')
+
+    return response
+
