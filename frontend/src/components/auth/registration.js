@@ -7,9 +7,8 @@ class registration extends Component {
 
     this.state = {
       username: "",
-      password: "",
-      password_confirmation: "",
-      registrationErrors: "",
+      email: "",
+      password: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,17 +16,13 @@ class registration extends Component {
   }
 
   handleSubmit(event) {
-    const { username, password, password_confirmation } = this.state;
+    const { username, email, password} = this.state;
 
-    axios
-      .post(
-        "" / registrations,
+    axios.post("api/register",
         {
-          user: {
             username: username,
-            password: password,
-            password_confirmation: password_confirmation,
-          },
+            email: email,
+            password: password
         },
         { withCredentials: true }
       )
@@ -59,20 +54,21 @@ class registration extends Component {
             required
           />
 
+
           <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
+            type="email"
+            name="email"
+            placeholder="E-mail"
+            value={this.state.email}
             onChange={this.handleChange}
             required
           />
 
           <input
             type="password"
-            name="password_confirmation"
-            placeholder="Password confirmation"
-            value={this.state.password_confirmation}
+            name="password"
+            placeholder="Password"
+            value={this.state.password}
             onChange={this.handleChange}
             required
           />

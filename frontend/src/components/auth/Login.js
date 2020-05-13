@@ -6,9 +6,8 @@ export default class Login extends Component {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
-      loginErrors: ""
+      username: "",
+      password: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,16 +21,12 @@ export default class Login extends Component {
   }
 
   handleSubmit(event) {
-    const { email, password } = this.state;
+    const { username, password } = this.state;
 
-    axios
-      .post(
-        "",
+    axios.post("api/login",
         {
-          user: {
-            email: email,
+            username: username,
             password: password
-          }
         },
         { withCredentials: true }
       )
@@ -51,10 +46,10 @@ export default class Login extends Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={this.state.email}
+            type="username"
+            name="username"
+            placeholder="Username"
+            value={this.state.username}
             onChange={this.handleChange}
             required
           />
