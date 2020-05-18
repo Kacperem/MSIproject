@@ -23,7 +23,7 @@ export default class Login extends Component {
   handleSubmit(event) {
     const { username, password } = this.state;
 
-    axios.post("api/login",
+    axios.post("http://localhost:8000/api/login",
         {
             username: username,
             password: password

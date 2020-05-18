@@ -18,7 +18,7 @@ class registration extends Component {
   handleSubmit(event) {
     const { username, email, password} = this.state;
 
-    axios.post("api/register",
+    axios.post("http://localhost:8000/api/register",
         {
             username: username,
             email: email,
