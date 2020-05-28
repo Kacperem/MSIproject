@@ -22,9 +22,23 @@ class LocationViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Location.objects.all()
+    #queryset = Location.objects.all()
     serializer_class = LocationSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Location.objects.filter(user_id=self.request.user)
+        return queryset
+
+    def create(self, request, *args, **kwargs):
+        Location.objects.create(user_id=self.request.user,
+                                name=request.data.get("name"),
+                                coordinatesX=(request.data.get("coordinatesX")),
+                                coordinatesY=(request.data.get("coordinatesY")),
+                                description=request.data.get("description"),
+                                image=request.data.get("image")
+                                )
+        return Response(status=204)
 
 
 @csrf_exempt
