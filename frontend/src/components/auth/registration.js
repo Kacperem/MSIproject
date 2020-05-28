@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Button, Form, Container, Row, Col, Badge } from "react-bootstrap";
+import "./style.css";
 
 class registration extends Component {
   constructor(props) {
@@ -8,7 +10,7 @@ class registration extends Component {
     this.state = {
       username: "",
       email: "",
-      password: ""
+      password: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -16,13 +18,15 @@ class registration extends Component {
   }
 
   handleSubmit(event) {
-    const { username, email, password} = this.state;
+    const { username, email, password } = this.state;
 
-    axios.post("http://localhost:8000/api/register",
+    axios
+      .post(
+        "http://localhost:8000/api/register",
         {
-            username: username,
-            email: email,
-            password: password
+          username: username,
+          email: email,
+          password: password,
         },
         { withCredentials: true }
       )
@@ -43,39 +47,58 @@ class registration extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="username"
-            name="username"
-            placeholder="Username"
-            value={this.state.username}
-            onChange={this.handleChange}
-            required
-          />
+      <Col xs={10} sm={10} md={10} lg={10}>
+        <div className="login">
+          <Container>
+            <Row>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Group controlId="formBasicUsername">
+                <h1>
+                    Register <Badge variant="secondary">Now</Badge>
+                  </h1>
+                  <Form.Control
+                    type="username"
+                    name="username"
+                    placeholder="Username"
+                    value={this.state.username}
+                    onChange={this.handleChange}
+                    size="lg"
+                    required
+                  />
+                </Form.Group>
 
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    placeholder="E-mail"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                    size="lg"
+                    required
+                  />
+                </Form.Group>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="E-mail"
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
+                <Form.Group controlId="formBasicPassword">
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    size="lg"
+                    required
+                  />
+                </Form.Group>
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
-
-          <button type="submit">Register</button>
-        </form>
-      </div>
+                <Button variant="outline-success" type="submit" size="lg" block>
+                  Register
+                </Button>
+              </Form>
+            </Row>
+          </Container>
+        </div>
+      </Col>
     );
   }
 }
