@@ -16,7 +16,11 @@ from rest_framework.status import (
 )
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-
+"""
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class 
+    permission_classes = [permissions.IsAuthenticated]
+"""
 
 class LocationViewSet(viewsets.ModelViewSet):
     """
@@ -40,6 +44,23 @@ class LocationViewSet(viewsets.ModelViewSet):
                                 )
         return Response(status=204)
 
+    def partial_update(self, request, *args, **kwargs):
+        print(vars(request))
+        location = Location.objects.filter(id=int(kwargs['pk']), user_id=self.request.user).first()
+        if not location:
+            return Response(status=404)
+        location.name = self.request.data.get("name")
+        location.description = self.request.data.get("description")
+        location.image = self.request.data.get("image")
+        location.save()
+        return Response(status=204)
+
+    def delete(self, request,*args, **kwargs):
+        location = Location.objects.filter(id=int(kwargs['pk']), user_id=self.request.user).first()
+        if not location:
+            return Response(status=404)
+        location.delete()
+        return Response(status=204)
 
 @csrf_exempt
 @api_view(["POST"])
