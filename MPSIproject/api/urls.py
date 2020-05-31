@@ -9,4 +9,4 @@ from .views import LocationViewSet, loginEndpoint, register, image
 router = routers.DefaultRouter()
 router.register(r"^api/locations", LocationViewSet, basename="LocationView")
 
-urlpatterns = [url(r"^", include(router.urls)),  path('api/login', loginEndpoint), path('api/register', register), path('api/image/<str:imagep>', image)]
+urlpatterns = [url(r"^", include(router.urls)),  path('api/login', loginEndpoint), path('api/register', register), path('api/image/<str:image>', image)]
