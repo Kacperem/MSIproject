@@ -4,6 +4,7 @@ import axios from "axios";
 import Registration from "./auth/Registration";
 import Login from "./auth/Login";
 
+
 import "bootstrap/dist/css/bootstrap.css";
 import { Col, Tabs, Tab } from "react-bootstrap";
 
@@ -51,6 +52,7 @@ export default class Home extends Component {
           </Tab>
         </Tabs>
       </div>
+
     );
   }
 }

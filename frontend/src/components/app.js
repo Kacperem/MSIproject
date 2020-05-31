@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import axios from "axios";
+import Map from "./map/map";
+
 
 import Home from "./Home";
 import Dashboard from "./Dashboard";
@@ -90,6 +92,16 @@ export default class App extends Component {
                 />
               )}
             />
+            <Route
+              exact
+              path={"/map"}
+              render={props => (
+                <Map
+                  {...props}
+                  loggedInStatus={this.state.loggedInStatus}
+                />
+              )}
+              />
           </Switch>
         </BrowserRouter>
       </div>
