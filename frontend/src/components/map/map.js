@@ -5,10 +5,10 @@ const markers = [
   {
     id: 7,
     name: "test patch 4",
-    latitude: "51.2540",
-    longitude: "17.3690",
+    latitude: "51.1088",
+    longitude: "17.0582",
     description: "ala ma kota i nie ma psa",
-    image: "",
+    image: "http://localhost:8000/api/locations/IMG_20190919_002946.jpg",
   },
 ];
 const TOKEN =
@@ -22,13 +22,14 @@ const geolocateStyle = {
 };
 
 export default function map() {
-  const [viewport, setViewport, selectedMarker, setSelectedMarker] = useState({
+  const [viewport, setViewport] = useState({
     latitude: 51.1088,
     longitude: 17.0582,
     width: "100vw",
     height: "100vh",
     zoom: 12,
   });
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
   return (
     <div>
@@ -43,12 +44,12 @@ export default function map() {
         {markers.map((marker) => (
           <Marker
             key={marker.id}
-            latitude={marker.latitude}
-            longitude={marker.longitude}
+            latitude={Number(marker.latitude)}
+            longitude={Number(marker.longitude)}
           >
             <button
               className="marker-btn"
-              onClick={(e) => {
+              onClick={ e => {
                 e.preventDefault();
                 setSelectedMarker(marker);
               }}
@@ -60,8 +61,8 @@ export default function map() {
 
         {selectedMarker ? (
           <Popup
-            latitude={selectedMarker.latitude}
-            longitude={selectedMarker.longitude}
+            latitude={Number(selectedMarker.latitude)}
+            longitude={Number(selectedMarker.longitude)}
             onClose={() => {
               setSelectedMarker(null);
             }}
