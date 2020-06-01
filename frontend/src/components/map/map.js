@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL, { GeolocateControl } from "react-map-gl";
+
+const TOKEN =
+  "pk.eyJ1Ijoia2FjcGVycmVtIiwiYSI6ImNrYXZpZHczczNsNHIzMXA2eGZjZjNwMXUifQ.GlqVRBjPz0cNx-KBRGKg6w";
+
+const geolocateStyle = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  margin: 10,
+};
 
 export default function map() {
-  const TOKEN =
-    "pk.eyJ1Ijoia2FjcGVycmVtIiwiYSI6ImNrYXZpZHczczNsNHIzMXA2eGZjZjNwMXUifQ.GlqVRBjPz0cNx-KBRGKg6w";
-
   const [viewport, setViewport] = useState({
     latitude: 51.1088,
     longitude: 17.0582,
@@ -22,7 +29,13 @@ export default function map() {
         onViewportChange={(viewport) => {
           setViewport(viewport);
         }}
-      ></ReactMapGL>
+      >
+        <GeolocateControl
+          style={geolocateStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={true}
+        />
+      </ReactMapGL>
     </div>
   );
 }
