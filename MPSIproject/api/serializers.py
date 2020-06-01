@@ -7,7 +7,7 @@ from .models import User
 class LocationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Location
-        fields = ['id',  'name', 'coordinatesX', 'coordinatesY', 'description', 'image']
+        fields = ['id',  'name', 'latitude', 'longitude', 'description', 'image']
 
 """
 class UserSerializer(serializers.HyperlinkedModelSerializer):

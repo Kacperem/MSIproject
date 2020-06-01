@@ -37,8 +37,8 @@ class LocationViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         Location.objects.create(user_id=self.request.user,
                                 name=request.data.get("name"),
-                                coordinatesX=(request.data.get("coordinatesX")),
-                                coordinatesY=(request.data.get("coordinatesY")),
+                                latitude=(request.data.get("latitude")),
+                                longitude=(request.data.get("longitude")),
                                 description=request.data.get("description"),
                                 image=request.data.get("image")
                                 )
