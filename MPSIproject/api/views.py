@@ -80,7 +80,8 @@ def login(username, password):
         return Response({'error': 'Invalid Credentials'},
                         status=HTTP_404_NOT_FOUND)
     token, _ = Token.objects.get_or_create(user=user)
-    return Response({'token': token.key},
+    return Response({'token': token.key,
+                     'username': username},
                     status=HTTP_200_OK)
 
 
