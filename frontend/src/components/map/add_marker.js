@@ -12,11 +12,13 @@ export default class Add_Marker extends Component {
       latitude: "",
       longitude: "",
       description: "",
-      image: "",
+      image: null,
+      imagePath: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.fillGeoLocation = this.fillGeoLocation.bind(this)
   }
 
   handleChange(event) {
@@ -26,31 +28,37 @@ export default class Add_Marker extends Component {
   }
 
   handleSubmit(event) {
-    const { id, name, latitude, longitude, description, image } = this.state;
+    debugger;
+    event.preventDefault();
+    const bodyFormData = new FormData();
+    for (const [key, value] of Object.entries(this.state))
+    {
+      bodyFormData.append(key, value); 
+    }
 
     axios
       .post(
         "http://localhost:8000/api/locations/",
-        {
-          id: id,
-          name: name,
-          latitude: latitude,
-          longitude: longitude,
-          description: description,
-          image: image,
-        },
-        { withCredentials: true }
+        bodyFormData,
+        { withCredentials: true,
+        headers: {
+          "Authorization": `Token ${this.props.token}`,
+        } }
       )
       .then((response) => {
-        if (response.data.logged_in) {
-          this.props.handleSuccessfulAuth(response.data);
-        }
+        this.props.history.push("/map");
       })
-      .catch((error) => {
-        console.log("login error", error);
-      });
-    event.preventDefault();
   }
+
+  fillGeoLocation() {
+    navigator.geolocation.getCurrentPosition((location) => {
+      this.setState({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      })
+    })
+  }
+
   render() {
     return (
       <Col xs={6} sm={6} md={6} lg={2}>
@@ -60,7 +68,7 @@ export default class Add_Marker extends Component {
             <Row>
               <Form onSubmit={this.handleSubmit}>
                   
-              <Button variant="outline-warning" type="" size="lg" block>
+              <Button variant="outline-warning" type="button" size="lg" block onClick={this.fillGeoLocation}>
                   Generate Location
                 </Button>
                 
@@ -109,10 +117,16 @@ export default class Add_Marker extends Component {
                   type="file"
                   name="image"
                   placeholder="Image"
-                  value={this.state.image}
-                  onChange={this.handleChange}
+                  value={this.state.imagePath}
+                  onChange={(event) => {
+                    const file = event.target.files[0];
+                    console.log(event)
+                    this.setState({
+                      image: file,
+                      imagePath: event.target.value,
+                    })
+                  }}
                   size="lg"
-                  required
                 />
 
                 <Button variant="outline-success" type="submit" size="lg" block>

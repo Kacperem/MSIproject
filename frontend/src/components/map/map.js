@@ -1,25 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMapGL, { GeolocateControl, Marker, Popup } from "react-map-gl";
 import "./map.css";
+import axios from "axios";
 
-const markers = [
-  {
-    id: 7,
-    name: "test patch 8",
-    latitude: "51.1088",
-    longitude: "17.0582",
-    description: "ala ma kota i nie ma psa",
-    image: "http://localhost:8000/api/locations/IMG_20190919_002946.jpg",
-  },
-  {
-    id: 2,
-    name: "test patch 2",
-    latitude: "51.1085",
-    longitude: "17.0585",
-    description: "ala ma kota i nie ma psa",
-    image: "http://localhost:8000/api/locations/IMG_20190919_002946.jpg",
-  },
-];
 const TOKEN =
   "pk.eyJ1Ijoia2FjcGVycmVtIiwiYSI6ImNrYXZpZHczczNsNHIzMXA2eGZjZjNwMXUifQ.GlqVRBjPz0cNx-KBRGKg6w";
 
@@ -30,7 +13,10 @@ const geolocateStyle = {
   margin: 10,
 };
 
-export default function map() {
+export default function Map({loggedInStatus, token}) {
+  const [markers, setMarkers] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(null);
+
   const [viewport, setViewport] = useState({
     latitude: 51.1088,
     longitude: 17.0582,
@@ -38,7 +24,20 @@ export default function map() {
     height: "100vh",
     zoom: 12,
   });
-  const [selectedMarker, setSelectedMarker] = useState(null);
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/locations/", { 
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`,
+      } 
+    })
+    .then(response => {
+      const data = response.data.map(marker => ({...marker, image: marker.image && `/api/image/${marker.image.substr(36)}` || undefined}))
+      setMarkers(data)
+    })
+  }, [])
+  
 
   return (
     <div>
@@ -63,7 +62,7 @@ export default function map() {
                 setSelectedMarker(marker);
               }}
             >
-              <img src="/skateboarding.svg" alt="Marker Icon" />
+              <img src={marker.image} alt="Marker Icon" />
             </button>
           </Marker>
         ))}

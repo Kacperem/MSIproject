@@ -37,7 +37,7 @@ export default class Home extends Component {
       <div>
         <Col xs={12} sm={12} md={12} lg={12}>
           <h1>MOb APP</h1>
-          <h1>Status: {this.props.loggedInStatus}</h1>
+          <h1>Status: {this.props.token ? "LOGGED IN" : "NOT LOGGED IN"}</h1>
           <button onClick={() => this.handleLogoutClick()}>Logout</button>
         </Col>
         <Tabs

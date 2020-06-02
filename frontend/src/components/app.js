@@ -7,13 +7,17 @@ import Add_Marker from "./map/add_marker"
 
 import Home from "./Home";
 import Dashboard from "./Dashboard";
+import AuthenticationContext from "../auth"
 
 export default class App extends Component {
   constructor() {
     super();
 
-    this.state = {
-      loggedInStatus: "NOT_LOGGED_IN",
+    const lsAuth = JSON.parse(localStorage.getItem("AUTH"));
+    console.log(lsAuth)
+
+    this.state = lsAuth || {
+      token: "",
       user: {}
     };
 
@@ -22,30 +26,31 @@ export default class App extends Component {
   }
 
   checkLoginStatus() {
-    axios
-      .get("http://localhost:3000/logged_in", { withCredentials: true })
-      .then(response => {
-        if (
-          response.data.logged_in &&
-          this.state.loggedInStatus === "NOT_LOGGED_IN"
-        ) {
-          this.setState({
-            loggedInStatus: "LOGGED_IN",
-            user: response.data.user
-          });
-        } else if (
-          !response.data.logged_in &
-          (this.state.loggedInStatus === "LOGGED_IN")
-        ) {
-          this.setState({
-            loggedInStatus: "NOT_LOGGED_IN",
-            user: {}
-          });
-        }
-      })
-      .catch(error => {
-        console.log("check login error", error);
-      });
+
+    // axios
+    //   .get("http://localhost:3000/logged_in", { withCredentials: true })
+    //   .then(response => {
+    //     if (
+    //       response.data.logged_in &&
+    //       this.state.loggedInStatus === "NOT_LOGGED_IN"
+    //     ) {
+    //       this.setState({
+    //         loggedInStatus: "LOGGED_IN",
+    //         user: response.data.user
+    //       });
+    //     } else if (
+    //       !response.data.logged_in &
+    //       (this.state.loggedInStatus === "LOGGED_IN")
+    //     ) {
+    //       this.setState({
+    //         loggedInStatus: "NOT_LOGGED_IN",
+    //         user: {}
+    //       });
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.log("check login error", error);
+    //   });
   }
 
   componentDidMount() {
@@ -54,16 +59,19 @@ export default class App extends Component {
 
   handleLogout() {
     this.setState({
-      loggedInStatus: "NOT_LOGGED_IN",
+      token: "",
       user: {}
     });
+    localStorage.removeItem("AUTH")
   }
 
   handleLogin(data) {
-    this.setState({
-      loggedInStatus: "LOGGED_IN",
-      user: data.user
-    });
+    const nextState = {
+      user: data.user,
+      token: data.token,
+    }
+    localStorage.setItem("AUTH", JSON.stringify(nextState))
+    this.setState(nextState);
   }
 
   render() {
@@ -79,7 +87,7 @@ export default class App extends Component {
                   {...props}
                   handleLogin={this.handleLogin}
                   handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
+                  token={this.state.token}
                 />
               )}
             />
@@ -90,6 +98,7 @@ export default class App extends Component {
                 <Dashboard
                   {...props}
                   loggedInStatus={this.state.loggedInStatus}
+                  token={this.state.token}
                 />
               )}
             />
@@ -99,7 +108,7 @@ export default class App extends Component {
               render={props => (
                 <Map
                   {...props}
-                  loggedInStatus={this.state.loggedInStatus}
+                  token={this.state.token}
                 />
               )}
               />
@@ -109,7 +118,7 @@ export default class App extends Component {
               render={props => (
                 <Add_Marker
                   {...props}
-                  loggedInStatus={this.state.loggedInStatus}
+                  token={this.state.token}
                 />
               )}
               />

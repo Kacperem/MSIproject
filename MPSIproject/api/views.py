@@ -101,7 +101,7 @@ def register(request):
 
 
 @api_view(["GET"])
-@permission_classes((permissions.IsAuthenticated,))
+@permission_classes((permissions.AllowAny,))
 def image(request, image):
     try:
         with open(image, 'rb') as f:
