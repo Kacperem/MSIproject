@@ -61,7 +61,8 @@ export default class Add_Marker extends Component {
 
   render() {
     return (
-      <Col xs={4} sm={4} md={4} lg={4}>
+    <div className="box">
+     <Col xs={10} sm={10} md={10} lg={10}>
         <div className="add_marker">
           <Container>  
             <Row>
@@ -134,11 +135,15 @@ export default class Add_Marker extends Component {
                 <Button variant="outline-danger" type="reset" size="lg" block>
                   Clean
                 </Button>
+                <Button variant="outline-warning" type="href" size="lg" block href="http://localhost:3000/map">
+                  Back
+                </Button>
               </Form>
             </Row>
           </Container>
         </div>
       </Col>
+      </div>
     );
   }
 }

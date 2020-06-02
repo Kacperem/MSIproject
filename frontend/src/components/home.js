@@ -4,6 +4,8 @@ import axios from "axios";
 import Registration from "./auth/Registration";
 import Login from "./auth/Login";
 
+import "./auth/style.css";
+
 
 import "bootstrap/dist/css/bootstrap.css";
 import { Col, Tabs, Tab } from "react-bootstrap";
@@ -34,7 +36,7 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div className="box">
         <Col xs={12} sm={12} md={12} lg={12}> 
         <Tabs
           defaultActiveKey="home"
