@@ -30,7 +30,7 @@ export default class Add_Marker extends Component {
 
     axios
       .post(
-        "http://localhost:8000/api/locations",
+        "http://localhost:8000/api/locations/",
         {
           id: id,
           name: name,
