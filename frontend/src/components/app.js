@@ -2,23 +2,21 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import Map from "./map/map";
-import Add_Marker from "./map/add_marker"
-
+import Add_Marker from "./map/add_marker";
 
 import Home from "./Home";
-import Dashboard from "./Dashboard";
-import AuthenticationContext from "../auth"
+import AuthenticationContext from "../auth";
 
 export default class App extends Component {
   constructor() {
     super();
 
     const lsAuth = JSON.parse(localStorage.getItem("AUTH"));
-    console.log(lsAuth)
+    console.log(lsAuth);
 
     this.state = lsAuth || {
       token: "",
-      user: {}
+      user: {},
     };
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -26,7 +24,6 @@ export default class App extends Component {
   }
 
   checkLoginStatus() {
-
     // axios
     //   .get("http://localhost:3000/logged_in", { withCredentials: true })
     //   .then(response => {
@@ -60,17 +57,17 @@ export default class App extends Component {
   handleLogout() {
     this.setState({
       token: "",
-      user: {}
+      user: {},
     });
-    localStorage.removeItem("AUTH")
+    localStorage.removeItem("AUTH");
   }
 
   handleLogin(data) {
     const nextState = {
       user: data.user,
       token: data.token,
-    }
-    localStorage.setItem("AUTH", JSON.stringify(nextState))
+    };
+    localStorage.setItem("AUTH", JSON.stringify(nextState));
     this.setState(nextState);
   }
 
@@ -82,7 +79,7 @@ export default class App extends Component {
             <Route
               exact
               path={"/"}
-              render={props => (
+              render={(props) => (
                 <Home
                   {...props}
                   handleLogin={this.handleLogin}
@@ -91,37 +88,19 @@ export default class App extends Component {
                 />
               )}
             />
-            <Route
-              exact
-              path={"/dashboard"}
-              render={props => (
-                <Dashboard
-                  {...props}
-                  loggedInStatus={this.state.loggedInStatus}
-                  token={this.state.token}
-                />
-              )}
-            />
+
             <Route
               exact
               path={"/map"}
-              render={props => (
-                <Map
-                  {...props}
-                  token={this.state.token}
-                />
-              )}
-              />
-              <Route
+              render={(props) => <Map {...props} token={this.state.token} />}
+            />
+            <Route
               exact
               path={"/add"}
-              render={props => (
-                <Add_Marker
-                  {...props}
-                  token={this.state.token}
-                />
+              render={(props) => (
+                <Add_Marker {...props} token={this.state.token} />
               )}
-              />
+            />
           </Switch>
         </BrowserRouter>
       </div>

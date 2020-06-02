@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { GeolocateControl, Marker, Popup } from "react-map-gl";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import "./map.css";
 import axios from "axios";
 
@@ -41,6 +42,25 @@ export default function Map({loggedInStatus, token}) {
 
   return (
     <div>
+      <div>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+  <Navbar.Brand href="#home">Mobilne systemy informatyczne</Navbar.Brand>
+  <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+  <Navbar.Collapse id="responsive-navbar-nav">
+    <Nav className="mr-auto">
+      <Nav.Link href="http://localhost:3000/add">Add New Marker</Nav.Link>
+      <Nav.Link href="#pricing">Pricing</Nav.Link>
+      <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+        <NavDropdown.Item href="#action/3.1">Add</NavDropdown.Item>
+        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+      </NavDropdown>
+    </Nav>
+  </Navbar.Collapse>
+</Navbar>
+    </div>
       <ReactMapGL
         {...viewport}
         mapboxApiAccessToken={TOKEN}

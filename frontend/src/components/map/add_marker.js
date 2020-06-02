@@ -61,13 +61,12 @@ export default class Add_Marker extends Component {
 
   render() {
     return (
-      <Col xs={6} sm={6} md={6} lg={2}>
+      <Col xs={4} sm={4} md={4} lg={4}>
         <div className="add_marker">
-          <Container>
-            <h2>Add Marker</h2>
+          <Container>  
             <Row>
               <Form onSubmit={this.handleSubmit}>
-                  
+              <h2>Add Marker</h2>
               <Button variant="outline-warning" type="button" size="lg" block onClick={this.fillGeoLocation}>
                   Generate Location
                 </Button>

@@ -18,7 +18,7 @@ export default class Home extends Component {
 
   handleSuccessfulAuth(data) {
     this.props.handleLogin(data);
-    this.props.history.push("/dashboard");
+    this.props.history.push("/map");
   }
 
   handleLogoutClick() {
@@ -35,11 +35,7 @@ export default class Home extends Component {
   render() {
     return (
       <div>
-        <Col xs={12} sm={12} md={12} lg={12}>
-          <h1>MOb APP</h1>
-          <h1>Status: {this.props.token ? "LOGGED IN" : "NOT LOGGED IN"}</h1>
-          <button onClick={() => this.handleLogoutClick()}>Logout</button>
-        </Col>
+        <Col xs={12} sm={12} md={12} lg={12}> 
         <Tabs
           defaultActiveKey="home"
           id="noanim-tab-example"
@@ -51,6 +47,7 @@ export default class Home extends Component {
             <Login handleSuccessfulAuth={this.handleSuccessfulAuth} />
           </Tab>
         </Tabs>
+        </Col>
       </div>
 
     );
