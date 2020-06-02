@@ -52,10 +52,10 @@ export default class Login extends Component {
             <Row>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="formBasicUsername">
-                <h1>
-    Login <Badge variant="secondary">Now</Badge>
-  </h1>
-                 
+                  <h1>
+                    Login <Badge variant="secondary">Now</Badge>
+                  </h1>
+
                   <Form.Control
                     type="username"
                     name="username"
@@ -68,7 +68,6 @@ export default class Login extends Component {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicPassword">
-           
                   <Form.Control
                     type="password"
                     name="password"

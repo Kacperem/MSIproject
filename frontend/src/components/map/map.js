@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import ReactMapGL, { GeolocateControl, Marker, Popup } from "react-map-gl";
+import "./map.css";
 
 const markers = [
   {
     id: 7,
-    name: "test patch 4",
+    name: "test patch 8",
     latitude: "51.1088",
     longitude: "17.0582",
+    description: "ala ma kota i nie ma psa",
+    image: "http://localhost:8000/api/locations/IMG_20190919_002946.jpg",
+  },
+  {
+    id: 2,
+    name: "test patch 2",
+    latitude: "51.1085",
+    longitude: "17.0585",
     description: "ala ma kota i nie ma psa",
     image: "http://localhost:8000/api/locations/IMG_20190919_002946.jpg",
   },
@@ -54,7 +63,7 @@ export default function map() {
                 setSelectedMarker(marker);
               }}
             >
-              <img src="/skateboarding.svg" alt="Skate Park Icon" />
+              <img src="/skateboarding.svg" alt="Marker Icon" />
             </button>
           </Marker>
         ))}

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import Map from "./map/map";
+import Add_Marker from "./map/add_marker"
 
 
 import Home from "./Home";
@@ -22,7 +23,7 @@ export default class App extends Component {
 
   checkLoginStatus() {
     axios
-      .get("", { withCredentials: true })
+      .get("http://localhost:3000/logged_in", { withCredentials: true })
       .then(response => {
         if (
           response.data.logged_in &&
@@ -97,6 +98,16 @@ export default class App extends Component {
               path={"/map"}
               render={props => (
                 <Map
+                  {...props}
+                  loggedInStatus={this.state.loggedInStatus}
+                />
+              )}
+              />
+              <Route
+              exact
+              path={"/add"}
+              render={props => (
+                <Add_Marker
                   {...props}
                   loggedInStatus={this.state.loggedInStatus}
                 />

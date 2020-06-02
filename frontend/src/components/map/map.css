@@ -1,0 +1,18 @@
+.marker-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .marker-btn img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .add_marker {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px #000;
+
+}
